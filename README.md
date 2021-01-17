@@ -31,7 +31,7 @@ To run this tool following data items are required -
 
 a) Covering Grammer : Each line contain graphime and their corresponding pronunciation seperated by a tab. Refer [cg.tsv](data/cg.tsv) file inside data folder for more detail.
 
-b) Test output : This file contains three attributes in each line seperated by a tab. The attributes are - orthography, expected pronunciation, and hypothesized pronunciation. Refer [test.tsv](data/test.tsv) file inside data folder for more detail.
+b) Test output : This file contains three attributes in each line seperated by a tab. The attributes are - orthography, expected pronunciation, and hypothesized pronunciation (placed in the same order). Refer [test.tsv](data/test.tsv) file inside data folder for more detail.
 
 
 ## How to Run
