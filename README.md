@@ -41,5 +41,5 @@ cd g2pErrorAnalysis
 python erroranalysis.py --cg_path data/cg.tsv --test_path data/test.tsv
 ```
 
-##Reference:
+## Reference:
 Gorman, Kyle. 2016. Pynini: a Python library for weighted finite-state gram- mar compilation. In Proceedings of the SIGFSM workshop on statistical NLP and weighted automata, 75–80. Berlin: Association for Computational Lin- guistics. https://www.aclweb.org/anthology/W16-2409.
