@@ -10,36 +10,34 @@ from pynini import *
 import argparse
 
 def main(args: argparse.Namespace):
-    bn_fst = string_file(args.cg_path).closure()
-    f = open(args.test_path,'r')
-    lines = f.readlines()
+    lg_fst = string_file(args.cg_path).closure()
     rulematch_predMatch = 0
     rulematch_predNotMatch = 0
     notRulematch_predMatch = 0
     notRulematch_predNotMatch = 0
-    for line in lines:
-        parts = line.split('\t')
-        ben = parts[0].strip()
-        act = parts[1].replace(' ','').replace('.','').strip()
-        predPron = parts[2].replace(' ','').replace('.','').strip()
-         
-        lattice = (ben @ bn_fst @ predPron).project(True)
-        
-        if lattice.start() == NO_STATE_ID:
-            if (act == predPron):
-                notRulematch_predMatch += 1
+    total_records = 0
+    with open(args.test_path, "r") as source:
+        for line in source:
+            total_records+=1
+            parts = line.split('\t')
+            lg = parts[0].strip()
+            act = parts[1].replace(' ','').replace('.','').strip()
+            predPron = parts[2].replace(' ','').replace('.','').strip()
+             
+            lattice = (lg @ lg_fst @ predPron).project(True)
+            
+            if lattice.start() == NO_STATE_ID:
+                if (act == predPron):
+                    notRulematch_predMatch += 1
+                    
+                else:
+                    notRulematch_predNotMatch += 1            
                 
             else:
-                notRulematch_predNotMatch += 1            
-            
-        else:
-            if (act == predPron):
-                rulematch_predMatch += 1
-            else:
-                rulematch_predNotMatch += 1
-
-    total_records = len(lines)
-    f.close()
+                if (act == predPron):
+                    rulematch_predMatch += 1
+                else:
+                    rulematch_predNotMatch += 1
     
     print ('Total Number of Records', total_records)
 
