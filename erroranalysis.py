@@ -6,11 +6,11 @@ Test File: contains three attributes in each line seperated by a tab. The attrib
 
 __author__ = "Arundhati Sengupta"
 
-from pynini import *
+import pynini
 import argparse
 
 def main(args: argparse.Namespace):
-    lg_fst = string_file(args.cg_path).closure()
+    cg_fst = pynini.string_file(args.cg_path).closure().optimize()
     rulematch_predMatch = 0
     rulematch_predNotMatch = 0
     notRulematch_predMatch = 0
@@ -24,15 +24,14 @@ def main(args: argparse.Namespace):
             act = parts[1].replace(' ','').replace('.','').strip()
             predPron = parts[2].replace(' ','').replace('.','').strip()
              
-            lattice = (lg @ lg_fst @ predPron).project(True)
+            lattice = (lg @ cg_fst @ predPron).project(True)
             
-            if lattice.start() == NO_STATE_ID:
+            if lattice.start() == pynini.NO_STATE_ID:
                 if (act == predPron):
                     notRulematch_predMatch += 1
                     
                 else:
                     notRulematch_predNotMatch += 1            
-                
             else:
                 if (act == predPron):
                     rulematch_predMatch += 1
@@ -40,22 +39,25 @@ def main(args: argparse.Namespace):
                     rulematch_predNotMatch += 1
     
     print ('Total Number of Records', total_records)
+    ruleMpredNM = round(rulematch_predNotMatch / total_records, 4) * 100
+    ruleMpredM = round(rulematch_predMatch / total_records, 4) * 100
+    ruleNMpredM = round (notRulematch_predMatch / total_records, 4) * 100
+    ruleNMpredNM = round(notRulematch_predNotMatch / total_records, 4) * 100
 
-    printtable(round(rulematch_predNotMatch / total_records, 4),round(rulematch_predMatch / total_records, 4),
-        round (notRulematch_predMatch / total_records, 4),round(notRulematch_predNotMatch / total_records, 4))
+    printtable(ruleMpredNM, ruleMpredM,ruleNMpredM,ruleNMpredNM)
 
 
 def printtable(ruleMpredNM, ruleMpredM,ruleNMpredM,ruleNMpredNM):
-    ruleMpredNM = '{:.4f}'.format(ruleMpredNM)
-    ruleMpredM = '{:.4f}'.format(ruleMpredM)
-    ruleNMpredM = '{:.4f}'.format(ruleNMpredM)
-    ruleNMpredNM = '{:.4f}'.format(ruleNMpredNM)
+    ruleMpredNM = '{:05.2f}'.format(ruleMpredNM)
+    ruleMpredM = '{:05.2f}'.format(ruleMpredM)
+    ruleNMpredM = '{:05.2f}'.format(ruleNMpredM)
+    ruleNMpredNM = '{:05.2f}'.format(ruleNMpredNM)
 
     print('                                            ')
     print('               | CG Match  |   CG Not Match |')
     print('---------------|-----------+----------------|')
-    print('Pron Match     | ',ruleMpredM,'  |     ',ruleNMpredM,'   |')
-    print('Pron Not Match | ',ruleMpredNM,'  |     ',ruleNMpredNM,'   |')
+    print('Pron Match     | ',ruleMpredM,'   |     ',ruleNMpredM,'    |')
+    print('Pron Not Match | ',ruleMpredNM,'   |     ',ruleNMpredNM,'    |')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
