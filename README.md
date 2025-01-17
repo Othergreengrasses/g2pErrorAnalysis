@@ -59,3 +59,4 @@ Gorman, Kyle. 2016. [Pynini: a Python library for weighted finite-state grammar
 compilation.](https://www.aclweb.org/anthology/W16-2409) In Proceedings of the
 SIGFSM workshop on statistical NLP and weighted automata, 75--80. Berlin:
 Association for Computational Linguistics.
+Lucas F.E. Ashby, Travis M. Bartley, Simon Clematide, Luca Del Signore, Cameron Gibson, Kyle Gorman, Yeonju Lee-Sikka, Peter Makarov, Aidan Malanoski, Sean Miller, Omar Ortiz, Reuben Raff, Arundhati Sengupta, Bora Seo, Yulia Spektor, and Winnie Yan. 2021. Results of the Second SIGMORPHON Shared Task on Multilingual Grapheme-to-Phoneme Conversion. In Proceedings of the 18th SIGMORPHON Workshop on Computational Research in Phonetics, Phonology, and Morphology, pages 115–125, Online. Association for Computational Linguistics.
